@@ -6,6 +6,7 @@ import { Divider, MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
 import "@mantine/carousel/styles.css";
 import '@mantine/tiptap/styles.css';
+import '@mantine/dates/styles.css';
 import "./index.css"; // ✅ REQUIRED for Tailwind
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import FindJob from "./pages/FindJob.jsx";
@@ -17,6 +18,8 @@ import PostJobsPage from "./pages/PostJobsPage.jsx";
 import JobDescriptionPage from "./pages/JobDescriptionPage.jsx";
 import ApplyJobPage from "./pages/ApplyJobPage.jsx";
 import CompanyProfilePage from "./pages/CompanyProfilePage.jsx";
+import PostedJobs from "./pages/PostedJobPage.jsx";
+import JobHistoryPage from "./pages/JobHistoryPage.jsx";
 
 
 createRoot(document.getElementById("root")).render(
@@ -31,6 +34,8 @@ createRoot(document.getElementById("root")).render(
         <Route path="/find-talent" element={<FindTelent/>}/>
         <Route path="/jobs" element={<JobDescriptionPage/>}/>
         <Route path="/company" element={<CompanyProfilePage/>}/>
+        <Route path="/posted-job" element={<PostedJobs/>}/>
+        <Route path="/job-history" element={<JobHistoryPage/>}/>
         <Route path="/apply-job" element={<ApplyJobPage/>}/>
         <Route path="/post-job" element={<PostJobsPage/>}/>
         <Route path="/talent-profile" element={<TalentProfilePage/>}/>

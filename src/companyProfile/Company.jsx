@@ -28,7 +28,7 @@ const Company = () => {
               </div>
               <Divider/>
                  <div>
-                    <Tabs radius="lg" defaultValue="gallery">
+                    <Tabs radius="lg" defaultValue="about">
                   <Tabs.List className='[&_button]:!text-lg mb-5 font-semibold [&_button[data-active="true"]]:!text-amber-400'>
                     <Tabs.Tab value="about">About</Tabs.Tab>
                     <Tabs.Tab value="jobs">jobs</Tabs.Tab>

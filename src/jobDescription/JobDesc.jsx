@@ -4,7 +4,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { card, desc } from '../data/Data'
 
-const JobDesc = () => {
+const JobDesc = (props) => {
     const data=desc;
   return (
     <div className='w-2/3 '>
@@ -19,9 +19,9 @@ const JobDesc = () => {
          </div>
          <div className='flex flex-col gap-2 items-center'>
             <Link to="/apply-job">
-            <Button  color='yellow' variant='light' >Apply</Button>
+            <Button  color='yellow' variant='light' >{props.edit?"Edit":"Apply"}</Button>
             </Link>
-         <IconBookmark className='text-zinc-400 cursor-pointer' />
+            {props.edit?<Button  color='red' variant='outline' >Delete</Button>:<IconBookmark className='text-zinc-400 cursor-pointer' />}
          </div>
        </div>
        <Divider my="xl" />

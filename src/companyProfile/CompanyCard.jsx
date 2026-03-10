@@ -14,7 +14,7 @@ const CompanyCard = (props) => {
              <div className='text-xs text-amber-50'>{props.employees} Employees</div>
            </div>
          </div>
-         <ActionIcon color='yelloe' variant='subtle'>
+         <ActionIcon color='yellow' variant='subtle'>
             <IconExternalLink/>
          </ActionIcon>
        </div>

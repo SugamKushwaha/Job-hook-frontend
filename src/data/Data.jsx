@@ -528,3 +528,61 @@ export const similar = [
     employees: 161000,
   }
 ];
+
+export const activeJobs=[
+  {
+    "jobTitle":"Fronedn",
+    "location":"kanpur",
+    "posted":"5 day ago"
+  },
+  {
+    "jobTitle":"Fronedn",
+    "location":"kanpur",
+    "posted":"5 day ago"
+  },
+  {
+    "jobTitle":"Fronedn",
+    "location":"kanpur",
+    "posted":"5 day ago"
+  },
+  {
+    "jobTitle":"Fronedn",
+    "location":"kanpur",
+    "posted":"5 day ago"
+  },
+  {
+    "jobTitle":"Fronedn",
+    "location":"kanpur",
+    "posted":"5 day ago"
+  },
+  {
+    "jobTitle":"Fronedn",
+    "location":"kanpur",
+    "posted":"5 day ago"
+  },
+  {
+    "jobTitle":"Fronedn",
+    "location":"kanpur",
+    "posted":"5 day ago"
+  },
+  {
+    "jobTitle":"Fronedn",
+    "location":"kanpur",
+    "posted":"5 day ago"
+  },
+  {
+    "jobTitle":"Fronedn",
+    "location":"kanpur",
+    "posted":"5 day ago"
+  },
+  {
+    "jobTitle":"Fronedn",
+    "location":"kanpur",
+    "posted":"5 day ago"
+  },
+  {
+    "jobTitle":"Fronedn",
+    "location":"kanpur",
+    "posted":"5 day ago"
+  }
+]
