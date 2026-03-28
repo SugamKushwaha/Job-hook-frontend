@@ -21,6 +21,7 @@ import CompanyProfilePage from "./pages/CompanyProfilePage.jsx";
 import PostedJobs from "./pages/PostedJobPage.jsx";
 import JobHistoryPage from "./pages/JobHistoryPage.jsx";
 import SignupPage from "./pages/SignupPage.jsx";
+import Profile from "./profile/Profile.jsx";
 
 
 createRoot(document.getElementById("root")).render(
@@ -41,6 +42,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="/post-job" element={<PostJobsPage/>}/>
         <Route path="/signup" element={<SignupPage/>}/>
         <Route path="/login" element={<SignupPage/>}/>
+        <Route path="/profile" element={<Profile/>}/>
         <Route path="/talent-profile" element={<TalentProfilePage/>}/>
         <Route path="*"   element={<App/>}/>
       </Routes>

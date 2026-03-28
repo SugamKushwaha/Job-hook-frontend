@@ -11,10 +11,12 @@ import {
   IconMoon,
   IconSun,
   IconMoonStars,
+  IconLogout2,
 } from '@tabler/icons-react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-const Profile=()=> {
+const ProfileMenu=()=> {
     const [checked, setchecked] = useState(false);
     const [opened, setOpened] = useState(false);
   return (
@@ -27,9 +29,11 @@ const Profile=()=> {
       </Menu.Target>
 
       <Menu.Dropdown onChange={()=>setOpened(true)}>
+        <Link to="/profile">
         <Menu.Item leftSection={<IconUserCircle size={14} />}>
           Profile
         </Menu.Item>
+        </Link>
         <Menu.Item leftSection={<IconMessageCircle size={14} />}>
           Messages
         </Menu.Item>
@@ -53,19 +57,15 @@ const Profile=()=> {
         <Menu.Divider />
 
         <Menu.Label>Danger zone</Menu.Label>
-        <Menu.Item
-          leftSection={<IconArrowsLeftRight size={14} />}
-        >
-          Transfer my data
-        </Menu.Item>
+       
         <Menu.Item
           color="red"
-          leftSection={<IconTrash size={14} />}
+          leftSection={<IconLogout2 size={14} />}
         >
-          Delete my account
+          Logout
         </Menu.Item>
       </Menu.Dropdown>
     </Menu>
   );
 }
-export default Profile
+export default ProfileMenu

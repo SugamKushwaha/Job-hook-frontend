@@ -5,7 +5,7 @@ import { IconAnchor } from "@tabler/icons-react";
 import { Avatar,Indicator } from '@mantine/core';
 import NavLinks from "./NavLinks";
 import { useLocation } from "react-router-dom";
-import Profile from "./Profile";
+import Profile from "./ProfileMenu";
 
 const Header = () => {
   const location = useLocation();
