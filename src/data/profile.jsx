@@ -54,3 +54,18 @@ const fields = [
 ];
 
 export default fields;
+
+export const certifications = [
+  {
+    name: "Java Backend Development",
+    issuer: "Coursera",
+    issueDate: "Jan 2024",
+    certificateId: "ABC123XYZ"
+  },
+  {
+    name: "React Developer Certification",
+    issuer: "Udemy",
+    issueDate: "Mar 2023",
+    certificateId: "REACT789"
+  }
+];

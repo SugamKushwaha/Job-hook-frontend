@@ -5,8 +5,7 @@ import { useEffect, useState} from 'react';
 const  SelectInput=(props)=>{
     useEffect(()=>{
      setData(props.options);
-     setValue(props.value);
-     setSearch(props.value)
+     
   }, [props.options]);
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
