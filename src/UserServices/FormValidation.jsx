@@ -1,4 +1,4 @@
-const signupValidation = (name, value) => {
+ const signupValidation = (name, value) => {
   switch (name) {
     case "name":
       if (!value.trim()) return "Name is required";
@@ -26,4 +26,18 @@ const signupValidation = (name, value) => {
   }
 };
 
-export default signupValidation;
+ const loginValidation =(name,value)=>{
+    switch (name) {
+   
+    case "email":
+      if (!value.trim()) return "Email is required";
+      return "";
+
+    case "password":
+      if (!value.trim()) return "Password is required";
+    default:
+      return "";
+    }
+}
+
+export {signupValidation,loginValidation};

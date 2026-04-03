@@ -1,9 +1,10 @@
 import { Anchor, Button, Checkbox, Group, PasswordInput, Radio, rem, TextInput } from '@mantine/core'
-import { IconAt } from '@tabler/icons-react'
+import { IconAt, IconCheck, IconX } from '@tabler/icons-react'
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { registerUser } from '../UserServices/UserService'
 import signupValidation from '../UserServices/FormValidation'
+import { notifications } from '@mantine/notifications'
 
 const form={
   name:"",
@@ -18,6 +19,7 @@ const Signup = () => {
   const [data,setData]=useState(form);
 
   const[formError,setFormError]=useState(form);
+  const navigate = useNavigate();
 
 const handleChange = (event) => {
   if (typeof event === "string") {
@@ -55,12 +57,36 @@ const handleChange = (event) => {
       if(newFormError[key])valid=false;
     }
     setFormError(newFormError);
+   
     if (valid===true){
   registerUser(data).then((res) =>{ 
-      console.log(res)
-       
+      console.log(res);
+      setData(form);
+       notifications.show({
+      title:"Registerd Successfully",
+      message:"Redirecting to login page...",
+      withCloseButton:true,
+      icon:<IconCheck style={{width:"90%",height:"90%"}} />,
+      color:"teal",
+      withBorder:true,
+      className:"!border-green-500"
     })
-    .catch((err) => console.log(err));
+    setTimeout(()=>{
+      navigate("/login");
+    },4000)
+    })
+    .catch((err) =>{ 
+      console.log(err);
+      notifications.show({
+      title:"Registerd Failed",
+      message:err.response.data.errorMessage,
+      withCloseButton:true,
+      icon:<IconX style={{width:"90%",height:"90%"}} />,
+      color:"red",
+      withBorder:true,
+      className:"!border-red-500"
+    })
+    });
     }
   };
 
@@ -86,7 +112,7 @@ const handleChange = (event) => {
 
       <Button onClick={handleSubmit} autoContrast variant='filled'>SignUp</Button>
 
-      <div className='mx-auto'>Have an account? <Link to="/login" className='text-amber-500 hover:underline'>Login</Link></div>
+      <div className='mx-auto'>Have an account? <span  className='text-amber-500 hover:underline cursor-pointer' onClick={()=>{navigate("/login");setFormError(form);setData(form)}} >Login</span></div>
     </div>
   )
 }

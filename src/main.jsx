@@ -29,7 +29,7 @@ import Profile from "./profile/Profile.jsx";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <MantineProvider defaultColorScheme='dark' >
-      
+      <Notifications position="top-center" zIndex={1000} />
       <BrowserRouter>
       <div className="relative">
         <Header/>
