@@ -24,35 +24,18 @@ import PostedJobs from "./pages/PostedJobPage.jsx";
 import JobHistoryPage from "./pages/JobHistoryPage.jsx";
 import SignupPage from "./pages/SignupPage.jsx";
 import Profile from "./profile/Profile.jsx";
+import { Provider } from "react-redux";
+import Store from "./Store.jsx";
+import AppRouts from "./pages/AppRouts.jsx";
 
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
+   <Provider store={Store}>
     <MantineProvider defaultColorScheme='dark' >
       <Notifications position="top-center" zIndex={1000} />
-      <BrowserRouter>
-      <div className="relative">
-        <Header/>
-      <Divider/>
-      <Routes >
-        <Route path="/find-jobs" element={<FindJob/>} />
-        <Route path="/find-talent" element={<FindTelent/>}/>
-        <Route path="/jobs" element={<JobDescriptionPage/>}/>
-        <Route path="/company" element={<CompanyProfilePage/>}/>
-        <Route path="/posted-job" element={<PostedJobs/>}/>
-        <Route path="/job-history" element={<JobHistoryPage/>}/>
-        <Route path="/apply-job" element={<ApplyJobPage/>}/>
-        <Route path="/post-job" element={<PostJobsPage/>}/>
-        <Route path="/signup" element={<SignupPage/>}/>
-        <Route path="/login" element={<SignupPage/>}/>
-        <Route path="/profile" element={<Profile/>}/>
-        <Route path="/talent-profile" element={<TalentProfilePage/>}/>
-        <Route path="*"   element={<App/>}/>
-      </Routes>
-     
-      <Footer/>
-      </div>
-      </BrowserRouter>
+     <AppRouts/>
     </MantineProvider>
+    </Provider>
   </StrictMode>
 );

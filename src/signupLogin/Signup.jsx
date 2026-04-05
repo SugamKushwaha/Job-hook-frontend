@@ -1,10 +1,11 @@
-import { Anchor, Button, Checkbox, Group, PasswordInput, Radio, rem, TextInput } from '@mantine/core'
+import { Anchor, Button, Checkbox, Group,  LoadingOverlay,  PasswordInput, Radio, rem, TextInput } from '@mantine/core'
 import { IconAt, IconCheck, IconX } from '@tabler/icons-react'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { registerUser } from '../UserServices/UserService'
 import { signupValidation } from '../UserServices/FormValidation';
 import { notifications } from '@mantine/notifications'
+import { errorNotification, successNotification } from '../UserServices/NotificationService'
 
 const form={
   name:"",
@@ -20,23 +21,19 @@ const Signup = () => {
 
   const[formError,setFormError]=useState(form);
   const navigate = useNavigate();
+  const[loading,setLoading]=useState(false);
 
 const handleChange = (event) => {
   if (typeof event === "string") {
     setData({ ...data, accountType: event });
     return;
   }
-
   let name = event.target.name;
   let value = event.target.value;
-
   const newData = { ...data, [name]: value };
   setData(newData);
-
   let errors = { ...formError };
-  // field validation
   errors[name] = signupValidation(name, value);
-  // password match validation
   if (name === "password" || name === "confirmPassword") {
     if (newData.confirmPassword && newData.password !== newData.confirmPassword) {
       errors.confirmPassword = "Passwords do not match";
@@ -44,7 +41,6 @@ const handleChange = (event) => {
       errors.confirmPassword = "";
     }
   }
-
   setFormError(errors);
 };
 
@@ -59,39 +55,32 @@ const handleChange = (event) => {
     setFormError(newFormError);
    
     if (valid===true){
+      setLoader(true);
   registerUser(data).then((res) =>{ 
       console.log(res);
       setData(form);
-       notifications.show({
-      title:"Registerd Successfully",
-      message:"Redirecting to login page...",
-      withCloseButton:true,
-      icon:<IconCheck style={{width:"90%",height:"90%"}} />,
-      color:"teal",
-      withBorder:true,
-      className:"!border-green-500"
-    })
+       successNotification("Registerd succesfully","Redirecting to login page");
     setTimeout(()=>{
+      setLoader(false);
       navigate("/login");
     },4000)
     })
     .catch((err) =>{ 
+      setLoader(false);
       console.log(err);
-      notifications.show({
-      title:"Registerd Failed",
-      message:err.response.data.errorMessage,
-      withCloseButton:true,
-      icon:<IconX style={{width:"90%",height:"90%"}} />,
-      color:"red",
-      withBorder:true,
-      className:"!border-red-500"
-    })
+     errorNotification("Registration Failed",err.response.data.errorMessage);
     });
     }
   };
 
   return (
-    <div className='w-1/2 px-20 flex flex-col justify-center gap-3'>
+   <><LoadingOverlay
+        visible={loading}
+        zIndex={1000}
+        className="translate-x-1/2"
+        overlayProps={{radius:'sm', blur:2}}
+        loaderProps={{color:'yellow', type:'bars'}}
+       /><div className='w-1/2 px-20 flex flex-col justify-center gap-3'>
       <div className='text-2xl font-semibold'> Creat Account</div>
       <TextInput value={data.name} name='name' error={formError.name} onChange={handleChange} withAsterisk label="Full Name" placeholder='Your Name' />
 
@@ -110,10 +99,10 @@ const handleChange = (event) => {
        
       <Checkbox autoContrast label={<>I accept{' '}<Anchor>terms & conditions</Anchor></>} />
 
-      <Button onClick={handleSubmit} autoContrast variant='filled'>SignUp</Button>
+      <Button loading={loading} onClick={handleSubmit} autoContrast variant='filled'>SignUp</Button>
 
       <div className='mx-auto'>Have an account? <span  className='text-amber-500 hover:underline cursor-pointer' onClick={()=>{navigate("/login");setFormError(form);setData(form)}} >Login</span></div>
-    </div>
+    </div></>
   )
 }
 
