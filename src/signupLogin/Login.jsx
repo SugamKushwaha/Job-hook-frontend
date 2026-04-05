@@ -5,6 +5,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { loginUser } from '../UserServices/UserService'
 import { loginValidation } from '../UserServices/FormValidation'
 import { notifications } from '@mantine/notifications'
+import { useDisclosure } from '@mantine/hooks'
+import ResetPassword from './ResetPassword'
 
 const form={
   email:"",
@@ -14,6 +16,7 @@ const form={
 const Login = () => {
   const [data,setData]=useState(form);
   const[formError,setFormError]=useState(form);
+  const[opened,{open,close}]=useDisclosure(false);
   const navigate = useNavigate();
 
     const handleChange=(event)=>{
@@ -42,7 +45,7 @@ const Login = () => {
           })
           setTimeout(()=>{
             navigate("/")
-          },4000);
+          },3000);
         })
       .catch((err) => {
         console.log(err);
@@ -61,7 +64,7 @@ const Login = () => {
     };
 
   return (
-    <div className='w-1/2 px-20 flex flex-col justify-center gap-3'>
+    <><div className='w-1/2 px-20 flex flex-col justify-center gap-3'>
       <div className='text-2xl font-semibold'> Creat Account</div>
       
 
@@ -73,7 +76,10 @@ const Login = () => {
       <Button onClick={handleSubmit} autoContrast variant='filled'>Login</Button>
 
       <div className='mx-auto'> Don't have an account? <span to="/signup" className='text-amber-500 hover:underline cursor-pointer' onClick={()=>{navigate("/signup");setFormError(form);setData(form)}}>SignUp</span></div>
+      <div onClick={open} className='text-amber-400 hover:underline cursor-pointer text-center'>Forget Password</div>
     </div>
+    <ResetPassword opened={opened} close={close} />
+    </>
   )
 }
 
