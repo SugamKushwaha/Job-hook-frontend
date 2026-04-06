@@ -14,7 +14,7 @@ const ExperienceCard = (props) => {
            <div className='p-2 bg-zinc-800'>
             <img className='h-7'  alt="" /></div>
            <div className='flex flex-col gap-1'> 
-             <div className='font-semibold'>{props.role}</div>
+             <div className='font-semibold'>{props.title}</div>
              <div className='text-sm text-amber-50'>{props.company} &bull; {props.location}</div>
            </div>
          </div>
@@ -29,7 +29,7 @@ const ExperienceCard = (props) => {
           <Button onClick={()=>setEdit(true)} color='yellow' variant='outline'>Edit</Button>
          <Button color='red.8' variant='light'>Delete</Button>
          </div>}
-    </div>:<ExpInput setEdit={setEdit} />
+    </div>:<ExpInput {...props}  setEdit={setEdit} />
   )
 }
 

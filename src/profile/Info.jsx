@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import fields from '../data/profile';
 import { ActionIcon } from '@mantine/core';
-import { IconBriefcase, IconDeviceFloppy, IconMapPin, IconPencil } from '@tabler/icons-react';
+import { IconBriefcase, IconCheck, IconDeviceFloppy, IconMapPin, IconPencil, IconX } from '@tabler/icons-react';
 import SelectInput from './SelectInput';
 import { Button, Code, Text, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
@@ -21,23 +21,29 @@ const Info = () => {
             form.setValues({jobTitle:profile.jobTitle, company:profile.company , location:profile.location});
         }else{
             setEdit(false);
-            let updatedProfile = {...profile, ...form.getValues()};
-            dispatch(changeProfile(updatedProfile));
-             successNotification("Success","Profile Updated Successfully");
-        }
-        
+            
+        } 
     }
     const form = useForm({
     mode: 'controlled',
     initialValues: { jobTitle: '', company: '', location:'' }
-    
   });
+  const handleSave=()=>{
+     setEdit(false);
+            let updatedProfile = {...profile, ...form.getValues()};
+            dispatch(changeProfile(updatedProfile));
+             successNotification("Success","Profile Updated Successfully");
+  }
   return (
     <div>
        <div className='text-3xl font-semibold flex justify-between'>{user.name}
-               <ActionIcon onClick={handleClick} size="lg" color='yellow' variant='subtle' aria-label='settinge'>
-                {edit ? <IconDeviceFloppy className='h-4/5 w-4/5' />:<IconPencil className='h-4/5 w-4/5'/>}
-               </ActionIcon>
+               <div>
+               {edit && <ActionIcon onClick={handleSave} size="lg" color="green.8" variant='subtle' aria-label='settinge'>
+                {<IconCheck className='h-4/5 w-4/5' stroke={1.5} />}
+               </ActionIcon>}
+               <ActionIcon onClick={handleClick} size="lg" color={edit?"red.8":"yellow.7"} variant='subtle' aria-label='settinge'>
+                {edit ? <IconX className='h-4/5 w-4/5' />:<IconPencil className='h-4/5 w-4/5'/>}
+               </ActionIcon></div>
                 </div>
 
             {
