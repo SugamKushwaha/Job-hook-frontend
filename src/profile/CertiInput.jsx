@@ -1,12 +1,17 @@
 import { Button, TextInput } from '@mantine/core'
 import React, { useState } from 'react'
 import SelectInput from './SelectInput'
-import { certifications } from '../data/profile'
+import fields, { certifications } from '../data/profile'
 import { MonthPickerInput } from '@mantine/dates'
 import { isNotEmpty, useForm } from '@mantine/form'
+import { useDispatch, useSelector } from 'react-redux'
+import { successNotification } from '../UserServices/NotificationService'
+import { changeProfile } from '../slices/ProfileSlice'
 
 const CertiInput = (props) => {
-    const select = certifications;
+    const select = fields;
+    const profile = useSelector((state)=>state.profile);
+    const dispatch = useDispatch();
 
    const form =useForm({
       mode:"controlled",
@@ -27,8 +32,19 @@ const CertiInput = (props) => {
     })
 
     const handleSave=()=>{
-             
+             form.validate();
+             if(!form.isValid())return;
+             let certi = [...(profile.certification || [])];
+             certi.push(form.getValues());
+             certi[certi.length-1].issueDate=certi[certi.length-1].issueDate.toISOString();
+             let updatedProfile={...profile,certification:certi};
+             props.setEdit(false);
+             dispatch(changeProfile(updatedProfile));
+             successNotification("Success","Certificate Added Successfully");
+
     }
+
+    const [issueDate , setIssueDate]=useState(new Date());
 
   return (
     <div className='flex flex-col gap-3'>
@@ -37,7 +53,7 @@ const CertiInput = (props) => {
         <TextInput {...form.getInputProps("name")} label="title" withAsterisk placeholder='Enter title' />
          <SelectInput name="issuer" form={form} {...select[1]} />
       </div>
-       <div className='flex gap-10 [&>*]:w-1/2'>
+       <div className='flex gap-10 [&>*]:w-1/2 my-3'>
        <MonthPickerInput  
                  label="End Date"
                  placeholder="Pick month"
@@ -49,8 +65,8 @@ const CertiInput = (props) => {
          
       </div>
       <div className='flex gap-5'>
-        <Button onClick={handleSave} color='yellow' variant='outline'>Save</Button>
-         <Button onClick={()=>props.setEdit(false)} color='red.8' variant='light'>Cancel</Button>
+        <Button onClick={handleSave} color="green.8" variant="outline">Save</Button>
+         <Button onClick={handleDelete} color='red.8' variant='light'>Cancel</Button>
       </div>
     </div>
   )

@@ -17,7 +17,6 @@ const Certificate = () => {
 
         <div className='flex gap-5'>
           <ActionIcon onClick={() => setAddCerti(true)} size="lg" color='yellow.5'variant="subtle" >
-            
             <IconPlus />
           </ActionIcon>
 
@@ -28,8 +27,8 @@ const Certificate = () => {
       </div>
 
       <div className='flex flex-col gap-8'>
-        {(profile?.certifications || []).map((certi, index) => (
-          <CertificationCard key={index} {...certi} edit={edit} />
+        {(profile?.certification || []).map((certi, index) => (
+          <CertificationCard index={index} key={index} {...certi} edit={edit} />
         ))}
 
         {addCerti && <CertiInput setEdit={setAddCerti} />}
