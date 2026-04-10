@@ -1,16 +1,29 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ApplyJobs from '../applyJob/ApplyJobs'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Button } from '@mantine/core'
 import { IconArrowLeft } from '@tabler/icons-react'
+import { getJob } from '../UserServices/JobService'
+import Jobs from '../findJobs/Jobs'
 
 const ApplyJobPage = () => {
+  const navigate = useNavigate();
+
+  const {id}=useParams();
+  const [job ,setJob]=useState(null);
+  useEffect(()=>{
+    window.scrollTo(0,0);
+    getJob(id).then((res)=>{
+      setJob(res);
+    }).catch((err)=>{
+      console.log(err);
+    });
+  },[id])
   return (
     <div className='min-h-[90vh] bg-zinc-900 '>
-        <Link to="/jobs" className='my-5 inline-block p-4'>
-         <Button color='yellow' variant='light'leftSection={<IconArrowLeft size={20} />} >Back</Button>
-         </Link>
-      <ApplyJobs/>
+       
+         <Button my="sm" color='yellow' variant='light'leftSection={<IconArrowLeft size={20} />} onClick={()=>navigate(-1)} >Back</Button>
+      <ApplyJobs {...Jobs} />
     </div>
   )
 }

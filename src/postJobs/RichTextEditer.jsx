@@ -8,7 +8,7 @@ import SubScript from '@tiptap/extension-subscript';
 import { content } from '../data/Data';
 
 
-const RichTextEditer=()=> {
+const RichTextEditer=(props)=> {
   const editor = useEditor({
     shouldRerenderOnTransaction: true,
     extensions: [
@@ -19,7 +19,10 @@ const RichTextEditer=()=> {
       Highlight,
       TextAlign.configure({ types: ['heading', 'paragraph'] }),
     ],
-    content,
+    content:props.form.getValues().description,
+    onUpdate({editor}){
+      props.form.setFieldValue('description',editor.getHTML());
+    },
   });
 
   return (

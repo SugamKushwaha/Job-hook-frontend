@@ -1,11 +1,22 @@
 import { Button, Divider } from '@mantine/core'
 import { IconArrowLeft } from '@tabler/icons-react'
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import JobDesc from '../jobDescription/JobDesc'
 import RecommendedJobs from '../jobDescription/RecommendedJobs'
+import { getJob } from '../UserServices/JobService'
 
 const JobDescriptionPage = () => {
+  const {id}=useParams();
+  const [job ,setJob]=useState(null);
+  useEffect(()=>{
+    window.scrollTo(0,0);
+    getJob(id).then((res)=>{
+      setJob(res);
+    }).catch((err)=>{
+      console.log(err);
+    });
+  },[id])
   return (
     <div className='min-h-[90vh] bg-zinc-900 '> 
     <Divider />
@@ -14,7 +25,7 @@ const JobDescriptionPage = () => {
          </Link>
      
      <div className='flex gap-5'>
-        <JobDesc/>
+        <JobDesc {...job} />
         <RecommendedJobs/>
      </div>
     </div>

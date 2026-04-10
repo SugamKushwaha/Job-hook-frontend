@@ -31,7 +31,7 @@ const Certificate = () => {
           <CertificationCard index={index} key={index} {...certi} edit={edit} />
         ))}
 
-        {addCerti && <CertiInput setEdit={setAddCerti} />}
+        {addCerti && <CertiInput setEdit={setAddCerti}  />}
       </div>
     </div>
   );

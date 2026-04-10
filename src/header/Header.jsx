@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { IconBell } from "@tabler/icons-react";
 import { IconSettings } from "@tabler/icons-react";
 import { IconAnchor } from "@tabler/icons-react";
@@ -6,11 +6,26 @@ import { Avatar,Button,Indicator } from '@mantine/core';
 import NavLinks from "./NavLinks";
 import { Link, useLocation } from "react-router-dom";
 import Profile from "./ProfileMenu";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getProfile } from "../UserServices/ProfileService";
+import { setProfile } from "../slices/ProfileSlice";
 
 const Header = () => {
   const user=useSelector((state)=>state.user);
   const location = useLocation();
+  const dispatch = useDispatch();
+  useEffect(()=>{
+  if(user?.profileId){
+    getProfile(user.profileId)
+      .then((data)=>{
+        dispatch(setProfile(data));
+      })
+      .catch((error)=>{
+        console.log(error);
+      });
+  }
+},[user])
+
   return (
     location.pathname!="/signup"&& location.pathname!="/login" ? <div className="w-full items-center bg-zinc-900 justify-between px-6 text-white flex h-28">
 

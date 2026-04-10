@@ -2,7 +2,7 @@ import { Checkbox, CheckIcon, Combobox, Group, Pill, PillsInput, useCombobox,Inp
 import { IconSearch, IconSelector } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 
-const groceries = ['🍎 Apples', '🍌 Bananas', '🥦 Broccoli', '🥕 Carrots', '🍫 Chocolate'];
+//const groceries = ['🍎 Apples', '🍌 Bananas', '🥦 Broccoli', '🥕 Carrots', '🍫 Chocolate'];
 
  const MultiInput=(props)=> {
   useEffect(() => {
