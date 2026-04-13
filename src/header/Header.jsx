@@ -24,7 +24,7 @@ const Header = () => {
         console.log(error);
       });
   }
-},[user])
+},[])
 
   return (
     location.pathname!="/signup"&& location.pathname!="/login" ? <div className="w-full items-center bg-zinc-900 justify-between px-6 text-white flex h-28">

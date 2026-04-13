@@ -4,15 +4,18 @@ import JobCard from './JobCard'
 import { getAllJobs } from '../UserServices/JobService'
 import { useDispatch, useSelector } from 'react-redux'
 import { resetFilter } from '../slices/FilterSlice'
+import { resetSort } from '../slices/SortSlice'
 
 const Jobs = () => {
   const dispatch= useDispatch();
   const [jobList,setJobList]=useState([]);
    const filter=useSelector((state)=>state.filter);
+   const sort = useSelector((state)=>state.sort);
   const [filteredTalents, setFilteredTalents]=useState([]);
   
   useEffect(()=>{
      dispatch(resetFilter())
+     dispatch(resetSort());
      getAllJobs().then((res)=>{
       setJobList(res.filter((job)=>job.jobStatus=="ACTIVE"));
      }).catch((err)=>{
@@ -20,6 +23,23 @@ const Jobs = () => {
      })
   },[]);
 
+  useEffect(() => {
+  if (sort == "Most Recent") {
+    setJobList([...jobList].sort((a, b) => 
+      new Date(b.postTime).getTime() - new Date(a.postTime).getTime()
+    ));
+  } 
+  else if (sort == "Salary: Low to High") {
+    setJobList([...jobList].sort((a, b) => 
+      a.packageOffered - b.packageOffered
+    ));
+  } 
+  else if (sort == "Salary: High to Low") {
+    setJobList([...jobList].sort((a, b) => 
+      b.packageOffered - a.packageOffered
+    ));
+  }
+}, [sort]);
    
      useEffect(() => {
   let filtered = jobList;
@@ -66,8 +86,8 @@ if (filter.Salary && filter.Salary.length > 0) {
   return (
     <div className='px-5 py-5'>
        <div className='flex justify-between mt-5'>
-         <div>Recommende jobs</div>
-        <Sort/>
+         <div>Recommended jobs</div>
+        <Sort sort="job" />
        </div>
       <div className='mt-10 flex flex-wrap gap-5'>
          {

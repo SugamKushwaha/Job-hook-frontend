@@ -1,27 +1,38 @@
 import { useState } from 'react';
 import { Combobox, TextInput, useCombobox } from '@mantine/core';
 import { IconAdjustments } from '@tabler/icons-react';
+import { useDispatch } from 'react-redux';
+import { updateSort } from '../slices/SortSlice';
 
-const groceries = ['Relevance','Most Recent','Salary (Low to High)','Salary (High to Low)'];
+const opt = ['Relevance','Most Recent','Salary: Low to High','Salary: High to Low'];
 
-const Sort=()=> {
+const talentSort=['Relevance', 'Experience: Low to High', 'Experience: High to Low'];
+
+
+const Sort=(props)=> {
   const combobox = useCombobox();
+  const dispatch = useDispatch();
   const [value, setValue] = useState('');
-  const shouldFilterOptions = !groceries.some((item) => item === value);
+  const shouldFilterOptions = !opt.some((item) => item === value);
   const filteredOptions = shouldFilterOptions
-    ? groceries.filter((item) => item.toLowerCase().includes(value.toLowerCase().trim()))
-    : groceries;
+    ? opt.filter((item) => item.toLowerCase().includes(value.toLowerCase().trim()))
+    : opt;
 
-  const options = filteredOptions.map((item) => (
+  const options = props.sort=="job"?filteredOptions.map((item) => (
     <Combobox.Option className='text-xs' value={item} key={item}>
       {item}
     </Combobox.Option>
+  )):talentSort.map((item) => (
+        <Combobox.Option className='text-xs' value={item} key={item}>
+          {item}
+        </Combobox.Option>
   ));
 
   return (
     <Combobox
       onOptionSubmit={(optionValue) => {
         setValue(optionValue);
+        dispatch(updateSort(optionValue));
         combobox.closeDropdown();
       }}
       store={combobox}
