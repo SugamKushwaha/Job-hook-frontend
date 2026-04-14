@@ -18,10 +18,13 @@ const ApplyJobs = (props) => {
   const handleSubmit =()=>{
     steSubmit(true);
     let x=5;
-    setInterval(()=>{
+   const interval= setInterval(()=>{
       x--;
       setSec(x);
-      if(x==0)navigate('/find-jobs');
+      if(x==0){
+        clearInterval(interval);
+        navigate('/find-jobs');
+      }
         },1000)
   }
   

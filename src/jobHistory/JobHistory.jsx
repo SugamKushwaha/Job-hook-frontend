@@ -10,16 +10,16 @@ const JobHistory = () => {
   const profile = useSelector((state)=>state.profile);
   const user = useSelector((state)=>state.user);
   const [activeTab, setActiveTab] = useState('APPLIED');
-  const [jobList, setJobList]= useState([]);
+  const [jobs, setJobs]= useState([]);
   const [showList, setShowList]=useState([]);
 
   useEffect(()=>{
     getAllJobs().then((res)=>{
-      setJobList(res);
+      setJobs(res);
       setShowList(res.filter((job)=>{
             let found = false;
             job.applicants?.forEach((applicant)=>{
-              if(applicant.applicantId==user.id && applicant.applicationStatus=="APPLIED"){
+              if(applicant.userId==user?.id && applicant.applicationStatus=="APPLIED"){
                 found=true;
               }
             })
@@ -28,17 +28,17 @@ const JobHistory = () => {
     }).catch((err)=>{
       console.log(err);
     })
-  },[]);
+  },[user]);
 
   const handleTabChange=(value)=>{
         setActiveTab(value);
         if(value=="SAVED"){
-            setShowList(jobList.filter((job)=>profile.savedJobs?.includes(job.id)));
+            setShowList(jobs.filter((job)=>profile.savedJobs?.includes(job.id)));
         }else{
-          setShowList(jobList.filter((job)=>{
+          setShowList(jobs.filter((job)=>{
             let found = false;
             job.applicants?.forEach((applicant)=>{
-              if(applicant.applicantId==user.id && applicant.applicationStatus==value){
+              if(applicant.userId==user.id && applicant.applicationStatus==value){
                 found=true;
               }
             })
@@ -47,6 +47,7 @@ const JobHistory = () => {
         }
   }
 
+  
   return (
     <div  className='min-h-[90vh] bg-zinc-900 '>
         <div className='text-2xl font-semibold pt-5 pb-10 pl-10 apply'>Job History</div>
@@ -66,27 +67,7 @@ const JobHistory = () => {
        }
       </div>
        </Tabs.Panel>
-      {/* <Tabs.Panel value="saved">
-        <div className='mt-10 flex flex-wrap gap-5'>
-         {
-        jobList.map((job,index)=>(<JobHistoryCard key={index} {...job} saved />))
-       }
-      </div>
-      </Tabs.Panel>
-       <Tabs.Panel value="offered">
-        <div className='mt-10 flex flex-wrap gap-5'>
-         {
-        jobList.map((job,index)=>(<JobHistoryCard key={index} {...job} offered />))
-       }
-      </div>
-       </Tabs.Panel>
-       <Tabs.Panel value="interviewing">
-        <div className='mt-10 flex flex-wrap gap-5'>
-         {
-        jobList.map((job,index)=>(<JobHistoryCard key={index} {...job} interview />))
-       }
-      </div>
-       </Tabs.Panel>  */}
+      
       </Tabs>
        </div>    
     </div>

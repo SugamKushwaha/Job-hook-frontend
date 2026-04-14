@@ -21,7 +21,7 @@ const JobHistoryCard = (props) => {
       dispatch(changeProfile(updatedProfile));
     }
   return (
-    <div className='bg-zinc-800 p-4 w-87 rounded-xl flex flex-col gap-3 hover:shadow-[0_0_5px_1px_yellow]'>
+    <div className='bg-zinc-800 ml-5 p-4 w-87 rounded-xl flex flex-col gap-3 hover:shadow-[0_0_5px_1px_yellow]'>
       
       <div className='flex justify-between'>
         <div className='flex gap-2 items-center'>
@@ -36,7 +36,7 @@ const JobHistoryCard = (props) => {
           </div>
         </div>
        { 
-        profile.savedJobs?.includes(props.id)? <IconBookmarkFilled  onClick={handleSaveJob} className='cursor-pointer text-amber-400' />:<IconBookmark  onClick={handleSaveJob} className='text-zinc-400 cursor-pointer  hover:text-amber-400' />
+        profile.savedJobs?.includes(props.id)? <IconBookmarkFilled  onClick={handleSaveJob} className='cursor-pointer text-amber-600' />:<IconBookmark  onClick={handleSaveJob} className='text-zinc-400 cursor-pointer  hover:text-amber-600' />
                }
       </div>
 
